@@ -1,6 +1,7 @@
 package GameState;
 
 import Main.GamePanel;
+import TileMap.Background;
 import TileMap.TileMap;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.*;
 public class Level1State extends GameState
 {
     private TileMap tileMap;
+    private Background bg;
 
     public Level1State(GameStateManager gsm){
         this.gsm = gsm;
@@ -19,9 +21,11 @@ public class Level1State extends GameState
 
     @Override public void init() {
 	tileMap = new TileMap(30);
-	tileMap.loadTiles("/Tilesets/grasstileset");
-	tileMap.loadMap("/Maps/level1-1.map");
+	tileMap.loadTiles("F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\TileSets\\tileset.png");
+	tileMap.loadMap("F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\Maps\\level1-1.txt");
 	tileMap.setPosition(0,0);
+
+	bg = new Background("F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\Backgrounds\\level1bg.png", 0.1);
 
     }
 
@@ -33,6 +37,9 @@ public class Level1State extends GameState
         // clear screen
 	g2d.setColor(Color.WHITE);
 	g2d.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+
+	// draw bg
+	bg.draw(g2d);
 
 	// draw tilemap
 	tileMap.draw(g2d);

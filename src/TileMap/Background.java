@@ -6,6 +6,7 @@ import Main.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Background
     public Background(String s, double ms) {
 
 	try {
-	    image = ImageIO.read(getClass().getResourceAsStream(s));
+	    image = ImageIO.read(new File(s));
 	    moveScale = ms;
 	} catch (Exception e) {
 	    e.printStackTrace();

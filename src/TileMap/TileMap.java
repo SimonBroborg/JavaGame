@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -56,7 +58,7 @@ public class TileMap
     public void loadTiles(String s) {
 
 	try {
-	    tileSet = ImageIO.read(getClass().getResourceAsStream(s));
+	    tileSet = ImageIO.read(new File(s));
 	    numTilesAcross = tileSet.getWidth() / tileSize;
 	    tiles = new Tile[2][numTilesAcross];
 
@@ -75,7 +77,7 @@ public class TileMap
 
     public void loadMap(String s) {
 	try {
-	    InputStream in = getClass().getResourceAsStream(s);
+	    InputStream in = new FileInputStream(new File(s));
 	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
 	    numCols = Integer.parseInt(br.readLine());
