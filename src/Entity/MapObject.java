@@ -103,7 +103,7 @@ public abstract class MapObject
 	currRow = (int) y / tileSize;
 
 	xdest = x + dx;
-	ydest = y + dx;
+	ydest = y + dy;
 
 	xtemp = x;
 	ytemp = y;
@@ -122,7 +122,7 @@ public abstract class MapObject
 	    if (bottomLeft || bottomRight) {
 		dy = 0;
 		falling = false;
-		ytemp = (currRow + 1) + tileSize - cheight / 2;
+		ytemp = (currRow + 1) * tileSize - cheight / 2;
 	    } else {
 		ytemp += dy;
 	    }

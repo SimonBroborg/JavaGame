@@ -86,6 +86,11 @@ public class TileMap
 	    width = numCols * tileSize;
 	    height = numRows * tileSize;
 
+	    xmin = GamePanel.WIDTH - width;
+	    xmax = 0;
+	    ymin = GamePanel.HEIGHT - height;
+	    ymax = 0;
+
 	    String delims = "\\s+";
 	    for (int row = 0; row < numRows; row++) {
 		String line = br.readLine();
@@ -141,6 +146,11 @@ public class TileMap
 	if (y < xmin) y = ymin;
 	if (x > xmax) x = xmax;
 	if (y > ymax) y = ymax;
+    }
+
+
+    public void setTween(final double tween) {
+	this.tween = tween;
     }
 
     public void draw(Graphics2D g2d) {

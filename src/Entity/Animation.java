@@ -52,7 +52,7 @@ public class Animation
 
     public int getFrame() { return currentFrame; }
 
-    public BufferedImage getIamge() {
+    public BufferedImage getImage() {
 	return frames[currentFrame];
     }
 
