@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="HotSwapAgentPluginSettingsProvider">
+    <option name="agentPath" value="C:\Users\Simon.Broborg\.IdeaIC2017.3\config\plugins\hotswap-agent-intellij-plugin\lib\agent\hotswap-agent-1.3.0.jar" />
+  </component>
   <component name="InspectionProjectProfileManager">
     <option name="PROJECT_PROFILE" value="TDDD78-2018-v1" />
     <option name="USE_PROJECT_PROFILE" value="false" />
@@ -147,12 +150,12 @@
       <module fileurl="file://$PROJECT_DIR$/Krunch_In_The_Catacombs.iml" filepath="$PROJECT_DIR$/Krunch_In_The_Catacombs.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_9" project-jdk-name="9.0" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="settings.github" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JavaGame" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />

@@ -2,7 +2,6 @@ package Entity;
 
 import TileMap.TileMap;
 
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Player extends MapObject
     private boolean firing;
     private int fireCost;
     private int fireBallDamage;
-    //private ArrayList<FireBall> fireBalls
+    private ArrayList<FireBall> fireBalls;
 
     //scratch
     private boolean scratching;
@@ -78,7 +77,7 @@ public class Player extends MapObject
 
 	fireCost = 200;
 	fireBallDamage = 5;
-	// fireBalls = new ArrayList<FireBall>();
+	fireBalls = new ArrayList<>();
 
 	scratchdamage = 8;
 	scratchRange = 40;
@@ -96,9 +95,9 @@ public class Player extends MapObject
 
 	    for (int j = 0; j < numFrames[i]; j++) {
 		if (i != 6) {
-		    bi[j] = spritesheet.getImage().getSubimage(j * width, i * health, width, height);
+		    bi[j] = spritesheet.getImage().getSubimage(j * width, i * height, width, height);
 		} else {
-		    bi[j] = spritesheet.getImage().getSubimage(j * width * 2, i * health, width, height);
+		    bi[j] = spritesheet.getImage().getSubimage(j * width * 2, i * height, width * 2, height);
 		}
 	    }
 	    sprites.add(bi);
@@ -201,6 +200,40 @@ public class Player extends MapObject
 	checkTileMapCollision();
 	setPosition(xtemp, ytemp);
 
+	if (currentAction == SCRATCHING) {
+	    if (animation.hasPlayedOnce()) {
+		scratching = false;
+	    }
+	}
+	if (currentAction == FIREBALL) {
+	    if (animation.hasPlayedOnce()) {
+		firing = false;
+	    }
+	}
+
+	// fireball attack
+	fire += 1;
+	if (fire > maxFire) {
+	    fire = maxFire;
+	}
+	if (firing && currentAction != FIREBALL) {
+	    if (fire > fireCost) {
+		fire -= fireCost;
+		FireBall fb = new FireBall(tileMap, facingRight);
+		fb.setPosition(x, y);
+		fireBalls.add(fb);
+	    }
+	}
+
+	// update fireballs
+	for (int i = 0; i < fireBalls.size(); i++) {
+	    fireBalls.get(i).update();
+	    if (fireBalls.get(i).shouldRemove()) {
+		fireBalls.remove(i);
+		i--;
+	    }
+	}
+
 
 	// set direction
 	if (currentAction != SCRATCHING && currentAction != FIREBALL) {
@@ -269,6 +302,10 @@ public class Player extends MapObject
     public void draw(Graphics2D g2d) {
 	setMapPosition();
 
+	for (int i = 0; i < fireBalls.size(); i++) {
+	    fireBalls.get(i).draw(g2d);
+	}
+
 	// draw player
 	if (flinching) {
 	    long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
@@ -277,13 +314,9 @@ public class Player extends MapObject
 	    }
 
 	}
-	if (facingRight) {
-	    g2d.drawImage(animation.getImage(), (int) (x + xmap - width / 2), (int) (y + ymap - height / 2), null);
-	} else {
-	    g2d.drawImage(animation.getImage(), (int) (x + xmap - width / 2 + width), (int) (y + ymap - height / 2), -width,
-			  height, null);
-
-	}
+	Sprite sprite = new Sprite("Resources/Sprites/Player/player.png");
+	//g2d.drawImage(sprite.getImage(), (int) (x + xmap - width / 2), (int) (y + ymap - height / 2), null);
+	super.draw(g2d);
     }
 }
 

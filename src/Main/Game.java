@@ -5,8 +5,10 @@ import javax.swing.*;
 /**
  *
  */
-public class Game
+public final class Game
 {
+    private Game() {}
+
     public static void main(String[] args) {
         JFrame window = new JFrame("Java game");
         window.setContentPane(new GamePanel());

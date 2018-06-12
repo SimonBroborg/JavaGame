@@ -1,7 +1,6 @@
 package Entity;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 /**
  *
@@ -19,6 +18,7 @@ public class Animation
     public Animation() {
 	playedOnce = false;
     }
+
 
     public void setFrames(BufferedImage[] frames) {
 	this.frames = frames;
