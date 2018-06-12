@@ -6,7 +6,6 @@ import TileMap.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 
 /**
  *
@@ -26,14 +25,12 @@ public class Level1State extends GameState
     @Override public void init() {
 	tileMap = new TileMap(30);
 	tileMap.loadTiles(
-		"F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\TileSets\\tileset.png");
+		"Resources/TileSets/tileset.png");
 	tileMap.loadMap(
-		"F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\Maps\\level1-1.txt");
+		"Resources/Maps/level1-1.txt");
 	tileMap.setPosition(0, 0);
 	tileMap.setTween(1);
-	bg = new Background(
-		"F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\Backgrounds\\level1bg.png",
-		0.1);
+	bg = new Background("Resources/Backgrounds/background.jpg", 0.1);
 
 	player = new Player(tileMap);
 	player.setPosition(100, 100);
@@ -68,6 +65,10 @@ public class Level1State extends GameState
 	if (k == KeyEvent.VK_O) player.setGliding(true);
 	if (k == KeyEvent.VK_P) player.setScratching();
 	if (k == KeyEvent.VK_I) player.setFiring();
+
+	if(k == KeyEvent.VK_ESCAPE){
+	    gsm.setState(GameStateManager.MENUSTATE);
+	}
     }
 
     @Override public void keyReleased(final int k) {

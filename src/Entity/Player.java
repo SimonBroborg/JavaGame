@@ -2,15 +2,15 @@ package Entity;
 
 import TileMap.TileMap;
 
-import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 /**
  *
  */
+@SuppressWarnings({ "MagicNumber", "unused", "OverlyComplexMethod", "FieldCanBeLocal" })
 public class Player extends MapObject
 {
     // player stuff
@@ -39,6 +39,9 @@ public class Player extends MapObject
     // animations
     private ArrayList<BufferedImage[]> sprites;
 
+    // temp sprite
+    private Sprite sprite;
+
     private final int[] numFrames = { 2, 8, 1, 2, 4, 2, 5 };
 
     // animation actions
@@ -58,18 +61,20 @@ public class Player extends MapObject
 	cwidth = 20;
 	cheight = 20;
 
-	moveSpeed = 0.3;
-	maxSpeed = 1.6;
+	moveSpeed = 0.7;
+	maxSpeed = 3;
 	stopSpeed = 0.4;
-	fallSpeed = 0.15;
-	maxFallSpeed = 4.0;
-	jumpStart = -4.8;
+	fallSpeed = 0.5;
+	maxFallSpeed = 10;
+	jumpStart = -10;
 	stopJumpSpeed = 0.3;
 
 	facingRight = true;
 
-	health = maxHealth = 5;
-	fire = maxFire = 2500;
+	health = 5;
+	maxHealth = 5;
+	fire = 2500;
+	maxFire = 2500;
 
 	fireCost = 200;
 	fireBallDamage = 5;
@@ -78,31 +83,31 @@ public class Player extends MapObject
 	scratchdamage = 8;
 	scratchRange = 40;
 
-	try {
-	    BufferedImage spritesheet = ImageIO.read(new File(
-		    "F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\Sprites\\Player\\playersprites.png"));
-	    sprites = new ArrayList<>();
-	    for (int i = 0; i < 7; i++) {
-		BufferedImage[] bi = new BufferedImage[numFrames[i]];
-
-		for (int j = 0; j < numFrames[i]; j++) {
-		    if (i != 6) {
-			bi[j] = spritesheet.getSubimage(j * width, i * health, width, height);
-		    } else {
-			bi[j] = spritesheet.getSubimage(j * width * 2, i * health, width, height);
-		    }
-		}
-		sprites.add(bi);
-	    }
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
-	animation = new Animation();
-	currentAction = IDLE;
-	animation.setFrames(sprites.get(IDLE));
-	animation.setDelay(400);
+	setAnimation();
 
     }
+
+    private void setAnimation() {
+	Sprite spritesheet = new Sprite("Resources/Sprites/Player/playersprites.png");
+
+	sprites = new ArrayList<>();
+	for (int i = 0; i < 7; i++) {
+	    BufferedImage[] bi = new BufferedImage[numFrames[i]];
+
+	    for (int j = 0; j < numFrames[i]; j++) {
+		if (i != 6) {
+		    bi[j] = spritesheet.getImage().getSubimage(j * width, i * health, width, height);
+		} else {
+		    bi[j] = spritesheet.getImage().getSubimage(j * width * 2, i * health, width, height);
+		}
+	    }
+	    sprites.add(bi);
+	}
+
+	animation.setFrames(sprites.get(IDLE));
+	animation.setDelay(400);
+    }
+
 
     public int getHealth() {
 	return health;
@@ -196,6 +201,16 @@ public class Player extends MapObject
 	checkTileMapCollision();
 	setPosition(xtemp, ytemp);
 
+
+	// set direction
+	if (currentAction != SCRATCHING && currentAction != FIREBALL) {
+	    if (right) facingRight = true;
+	    if (left) facingRight = false;
+	}
+	runAnimation();
+    }
+
+    private void runAnimation() {
 	// set animation
 	if (scratching) {
 	    if (currentAction != SCRATCHING) {
@@ -249,11 +264,6 @@ public class Player extends MapObject
 	}
 	animation.update();
 
-	// set direction
-	if (currentAction != SCRATCHING && currentAction != FIREBALL) {
-	    if (right) facingRight = true;
-	    if (left) facingRight = false;
-	}
     }
 
     public void draw(Graphics2D g2d) {

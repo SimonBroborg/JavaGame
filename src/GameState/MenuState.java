@@ -24,7 +24,7 @@ public class MenuState extends GameState
 	this.gsm = gsm;
 
 	try {
-	    bg = new Background("F:\\Users\\Simon\\Documents\\Krunch_In_The_Catacombs\\Krunch_In_The_Catacombs\\Resources\\Backgrounds\\menubg.png", 1);
+	    bg = new Background("Resources/Backgrounds/menubg.png", 1);
 	    bg.setVector(-0.1, 0);
 	    titleColor = new Color(128, 0, 0);
 	    titleFont = new Font("Century Gothic", Font.PLAIN, 28);
@@ -79,7 +79,7 @@ public class MenuState extends GameState
     }
 
     @Override public void keyPressed(final int k) {
-	if (k == KeyEvent.VK_ENTER) {
+	if (k == KeyEvent.VK_ENTER || k == KeyEvent.VK_E) {
 	    select();
 	}
 	if (k == KeyEvent.VK_UP || k == KeyEvent.VK_W) {

@@ -69,6 +69,9 @@ public abstract class MapObject
     public MapObject(TileMap tm) {
 	tileMap = tm;
 	tileSize = tm.getTileSize();
+	animation = new Animation();
+	currentAction = 0;
+
     }
 
     public boolean intersects(MapObject o) {
